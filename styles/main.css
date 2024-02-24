@@ -27,12 +27,17 @@ body::before {
 }
 
 .site-header {
+    position: fixed; /* Fixed position */
+    top: 0; /* Align to the top */
+    width: 100%; /* Full width */
     background-color: rgba(0, 90, 156, 70%); /* Adjusted for 80% transparency */
     color: #ffffff;
     display: flex;
     justify-content: space-between;
     padding: 20px 10%;
     align-items: center;
+    overflow: hidden; /* Ensures the content is not overflowing */
+    z-index: 1000; /* Ensures the menu stays on top of other content */
 }
 
 .site-header .logo {
@@ -84,7 +89,7 @@ body::before {
 
 .intro-panel {
     text-align: center;
-    padding: 40px 20px; /* Adjust padding to suit your design */
+    padding: 100px 20px; /* Adjust padding to suit your design */
     background-color: rgba(240, 240, 240, 0.3);
     margin-bottom: 30px; /* Space between intro panel and the panels container */
 }
