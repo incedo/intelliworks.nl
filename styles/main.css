@@ -29,7 +29,7 @@ body::before {
 .site-header {
     position: fixed; /* Fixed position */
     top: 0; /* Align to the top */
-    width: 100%; /* Full width */
+    width: 80%;
     background-color: rgba(0, 90, 156, 70%); /* Adjusted for 80% transparency */
     color: #ffffff;
     display: flex;
@@ -37,7 +37,6 @@ body::before {
     padding: 20px 10%;
     align-items: center;
     overflow: hidden; /* Ensures the content is not overflowing */
-    z-index: 1000; /* Ensures the menu stays on top of other content */
 }
 
 .site-header .logo {
@@ -46,14 +45,18 @@ body::before {
 }
 
 .site-nav a {
-    color: white;
-    text-decoration: none;
-    margin-left: 20px;
-    font-weight: 500;
+        float: left; /* Align links to the left */
+        display: block; /* Display as block */
+        color: #f2f2f2; /* Text color */
+        text-align: center; /* Center text */
+        padding: 14px 16px; /* Padding inside each link */
+        text-decoration: none; /* No underline on links */
 }
 
 .site-nav a:hover {
-    text-decoration: underline;
+    background-color: rgba(256, 256, 256, 20%); /* Hover color */
+    color: black; /* Hover text color */
+    border-radius: 10px;
 }
 
 .panels-container {
@@ -85,6 +88,7 @@ body::before {
 .panel p {
     padding: 0 15px 20px;
     color: #666;
+    background-color: rgba(240, 240, 240, 0.3);
 }
 
 .intro-panel {
@@ -101,6 +105,7 @@ body::before {
 }
 
 .slogan-panel {
+    flex-basis: 30%; /* Adjust based on your preference */
     text-align: center;
     font-size: 24px; /* Adjust size as needed */
     font-weight: bold;
@@ -110,4 +115,42 @@ body::before {
     border-radius: 8px; /* Optional: adds rounded corners */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: adds a subtle shadow for depth */
     color: #005A9C; /* Adjust the color to fit your brand */
+}
+
+.contact-panel {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    background-color: #f0f0f0; /* Light grey background */
+}
+
+.map iframe {
+    width: 100%;
+    height: 400px; /* Adjust as needed */
+}
+
+.contact-form form {
+    display: flex;
+    flex-direction: column;
+    max-width: 300px; /* Adjust based on your preference */
+}
+
+.contact-form label {
+    margin-top: 10px;
+}
+
+.contact-form input[type=text],
+.contact-form input[type=email],
+.contact-form textarea {
+    padding: 10px;
+    margin-top: 5px;
+}
+
+.contact-form input[type=submit] {
+    margin-top: 10px;
+    background-color: #005A9C; /* Example primary color */
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
 }
