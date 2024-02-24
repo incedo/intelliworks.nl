@@ -42,6 +42,14 @@ body::before {
 .site-header .logo {
     font-weight: 700;
     font-size: 24px;
+    display: flex;
+    align-items: center; /* Aligns vertically center */
+    justify-content: center; /* Aligns horizontally center, if needed */
+}
+.site-header .logo-img {
+    width: 50px; /* Adjust the width as needed */
+    height: auto;
+    padding-right: 10px;
 }
 
 .site-nav a {
