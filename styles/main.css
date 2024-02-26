@@ -113,52 +113,13 @@ body::before {
 }
 
 .slogan-panel {
-    flex-basis: 30%; /* Adjust based on your preference */
     text-align: center;
-    font-size: 24px; /* Adjust size as needed */
+    font-size: 30px; /* Adjust size as needed */
     font-weight: bold;
-    margin: 40px 20px; /* Adjust margin to control spacing */
+    margin: 30px 0px; /* Adjust margin to control spacing */
     padding: 20px;
-    background-color: rgba(255, 255, 255, 0.3); /* Semi-transparent white for slight see-through effect */
+    background-color: rgba(255, 255, 255, 0.4); /* Semi-transparent white for slight see-through effect */
     border-radius: 8px; /* Optional: adds rounded corners */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: adds a subtle shadow for depth */
-    color: #005A9C; /* Adjust the color to fit your brand */
-}
-
-.contact-panel {
-    display: flex;
-    justify-content: space-around;
-    padding: 20px;
-    background-color: #f0f0f0; /* Light grey background */
-}
-
-.map iframe {
-    width: 100%;
-    height: 400px; /* Adjust as needed */
-}
-
-.contact-form form {
-    display: flex;
-    flex-direction: column;
-    max-width: 300px; /* Adjust based on your preference */
-}
-
-.contact-form label {
-    margin-top: 10px;
-}
-
-.contact-form input[type=text],
-.contact-form input[type=email],
-.contact-form textarea {
-    padding: 10px;
-    margin-top: 5px;
-}
-
-.contact-form input[type=submit] {
-    margin-top: 10px;
-    background-color: #005A9C; /* Example primary color */
-    color: white;
-    padding: 10px;
-    border: none;
-    cursor: pointer;
+    color: #005A9C;
 }
