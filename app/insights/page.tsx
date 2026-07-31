@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import MobileNav from "../MobileNav";
 
 export const metadata: Metadata = {
   title: "Insights — IntelliWorks",
@@ -26,6 +27,7 @@ export default function InsightsPage() {
         <a className="brand" href="/" aria-label="IntelliWorks home"><span className="brand-mark">iw</span><span>IntelliWorks</span></a>
         <nav aria-label="Insights navigation"><a href="/#approach">Approach</a><a href="/people">People</a><a href="/insights" aria-current="page">Insights</a><a href="/portfolio">Portfolio</a></nav>
         <a className="header-cta" href="/contact">Start a conversation <Arrow /></a>
+        <MobileNav />
       </header>
 
       <section className="insights-hero">

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import MobileNav from "../MobileNav";
 
 export const metadata: Metadata = {
   title: "Portfolio — IntelliWorks",
@@ -20,6 +21,7 @@ export default function PortfolioPage() {
         <a className="brand" href="/" aria-label="IntelliWorks home"><span className="brand-mark">iw</span><span>IntelliWorks</span></a>
         <nav aria-label="Portfolio navigation"><a href="/#approach">Approach</a><a href="/people">People</a><a href="/insights">Insights</a><a href="/portfolio" aria-current="page">Portfolio</a></nav>
         <a className="header-cta" href="/contact">Start a conversation <Arrow /></a>
+        <MobileNav />
       </header>
 
       <section className="portfolio-hero">

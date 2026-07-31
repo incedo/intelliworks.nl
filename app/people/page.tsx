@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import MobileNav from "../MobileNav";
 
 export const metadata: Metadata = {
   title: "People — IntelliWorks",
@@ -30,6 +31,7 @@ export default function PeoplePage() {
           <a href="/portfolio">Portfolio</a>
         </nav>
         <a className="header-cta" href="/contact">Start a conversation <Arrow /></a>
+        <MobileNav />
       </header>
 
       <section className="people-hero">
