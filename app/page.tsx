@@ -1,4 +1,5 @@
 import FlowExplorer from "./FlowExplorer";
+import MobileNav from "./MobileNav";
 
 const Arrow = () => <span aria-hidden="true">↗</span>;
 
@@ -20,6 +21,7 @@ export default function Home() {
         <a className="header-cta" href="/contact">
           Start a conversation <Arrow />
         </a>
+        <MobileNav />
       </header>
 
       <section className="hero" id="top">

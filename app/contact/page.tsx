@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import DemoChat from "./DemoChat";
+import MobileNav from "../MobileNav";
 
 export const metadata: Metadata = {
   title: "Contact — IntelliWorks",
@@ -23,6 +24,7 @@ export default function ContactPage() {
           <a href="/portfolio">Portfolio</a>
         </nav>
         <a className="header-cta" href="/">Back to the site <Arrow /></a>
+        <MobileNav />
       </header>
 
       <section className="contact-hero">
