@@ -1,0 +1,74 @@
+name: Artifact retention
+
+# Keep three successful artifact-bearing runs per workflow, across branches.
+# Only API metadata is read: never check out or execute triggering-run code.
+on:
+  workflow_run:
+    workflows: ['Deploy IntelliWorks to GitHub Pages']
+    types: [completed]
+
+permissions:
+  actions: write
+
+concurrency:
+  group: artifact-retention-${{ github.event.workflow_run.workflow_id }}
+  cancel-in-progress: false
+
+jobs:
+  cleanup:
+    if: github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Keep artifacts from the last three successful builds
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const trigger = context.payload.workflow_run;
+            if (trigger.conclusion !== 'success') return;
+            const artifacts = await github.paginate(github.rest.actions.listArtifactsForRepo, {
+              owner, repo, per_page: 100
+            });
+            const live = artifacts.filter(a => !a.expired && a.workflow_run?.id);
+            if (!live.some(a => a.workflow_run.id === trigger.id)) {
+              core.info('No new artifacts uploaded; keeping previous builds.');
+              return;
+            }
+            // An optional upload may fail while the workflow still reports success.
+            const jobs = await github.paginate(github.rest.actions.listJobsForWorkflowRun, {
+              owner, repo, run_id: trigger.id, filter: 'latest', per_page: 100
+            });
+            if (jobs.some(j => j.steps?.some(s => s.conclusion === 'failure'))) {
+              core.info('A step failed; keeping previous builds.');
+              return;
+            }
+            const runs = new Map();
+            // Finish all reads before deleting anything. Unknown runs fail closed.
+            for (const id of new Set(live.map(a => a.workflow_run.id))) {
+              const { data: run } = await github.rest.actions.getWorkflowRun({
+                owner, repo, run_id: id
+              });
+              if (run.workflow_id === trigger.workflow_id && run.status === 'completed') {
+                runs.set(id, run);
+              }
+            }
+            const successful = [...runs.values()]
+              .filter(r => r.conclusion === 'success')
+              .sort((a, b) => b.run_number - a.run_number);
+            const keep = new Set(successful.slice(0, 3).map(r => r.id));
+            const dayAgo = Date.now() - 24 * 60 * 60 * 1000;
+            let deleted = 0;
+            for (const artifact of live) {
+              const run = runs.get(artifact.workflow_run.id);
+              if (!run || keep.has(run.id)) continue;
+              // Leave failed/cancelled reports available for troubleshooting for one day.
+              if (run.conclusion !== 'success' && Date.parse(run.updated_at) >= dayAgo) continue;
+              try {
+                await github.rest.actions.deleteArtifact({ owner, repo, artifact_id: artifact.id });
+                deleted++;
+              } catch (error) {
+                if (error.status !== 404) throw error; // It may have expired meanwhile.
+              }
+            }
+            core.info(`Kept up to 3 successful artifact-bearing builds; deleted ${deleted} artifacts.`);
